@@ -7,6 +7,13 @@ public class ClientProfesseur {
 
     private Connection conn = null;
     private PreparedStatement encoderEtudiant;
+    private PreparedStatement encoderEntreprise;
+    private PreparedStatement encoderMotCle;
+    private PreparedStatement voirOffreStage;
+    private PreparedStatement validerOffreStage;
+    private PreparedStatement voirOffreStageValidee;
+    private PreparedStatement voirEtudiantSansStage;
+    private PreparedStatement voirOffreStageAttribuee;
 
     public ClientProfesseur() {
 
@@ -17,7 +24,8 @@ public class ClientProfesseur {
             System.exit(1);
         }
 
-        String url="jdbc:postgresql://172.24.2.6:5432/dbcdamas14";
+        //String url="jdbc:postgresql://172.24.2.6:5432/trongnguyen";
+        String url="jdbc:postgresql://localhost:5432/postgres";
         try {
             conn= DriverManager.getConnection(url,"postgres","test");
         } catch (SQLException e) {
@@ -26,7 +34,12 @@ public class ClientProfesseur {
         }
 
         try {
-            encoderEtudiant = conn.prepareStatement()
+            encoderEtudiant = conn.prepareStatement("SELECT projet.encoder_etudiant (?,?,?,?,?)");
+            encoderEntreprise = conn.prepareStatement("SELECT projet.encoder_entreprise (?,?,?,?,?)");
+            encoderMotCle = conn.prepareStatement("SELECT projet.encoder_mot_cle (?)");
+        } catch (SQLException e) {
+            System.out.println("Erreur !");
+            System.exit(1);
         }
 
     }
